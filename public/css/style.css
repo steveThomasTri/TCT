@@ -1,0 +1,72 @@
+html, body{
+    height:100%;
+    width:100%;
+    font-family:sans-serif;
+}
+
+#home {
+    background: url('../images/cube-3319359_1920.jpg') no-repeat 50% 50%;
+    display: table;
+    height:100%;
+    width:100%;
+    background-size:cover;
+}
+
+#tournamentregistrationform{
+    background-color:aqua ; 
+    z-index:1; 
+    position:relative;
+}
+
+#gamesform{
+    z-index:1; 
+    position:relative;
+}
+
+.gamesline{
+    border:1px solid gray;
+    border-radius: 25px;
+    padding: 15px 0px 0px 0;
+}
+
+.gamesdesc{
+    margin: -7px 0 0 0;
+}
+
+.gamestableheader{
+    color:white;
+    font-size: 18px;
+}
+
+.gamesvaluechanged{
+    background-color: green;
+}
+
+.MTPcounter{
+    color: white;
+    border: 1px solid white;
+    padding: 5px;
+}
+
+#home2 {
+    background: url('../images/cube-3319359_1920.jpg') no-repeat 50% 50%;
+    position:fixed;
+    top:0;
+    z-index:0;
+    height:100%;
+    width:100%;
+}
+
+.landing-text{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.splash{
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.mmbtn{
+    text-align: left;
+}

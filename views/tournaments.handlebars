@@ -1,0 +1,18 @@
+<div id="home2"></div>
+
+<div class="container" id='gamesform'>
+    {{#each tournaments}}
+        <div class="card">
+            <div class="card-header">{{this.name}}</div>
+            <div class="card-body">
+                <p>Located at {{this.location}}</p>
+                <p>tournament date {{this.date}}</p>
+                <p>Players Registered: {{this.maxnum}}</p>
+                <p>Spots Remaining: 200</p>
+            </div> 
+            <div class="card-footer">
+                <button type="button" class='btn btn-primary' tournamentID={{this.tournamentid}}>Enter Tournament</button>
+            </div>
+        </div>
+    {{/each}}
+</div>

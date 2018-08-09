@@ -1,0 +1,160 @@
+body {
+  background-image: url("../images/grayhex.jpg");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-attachment: fixed;
+  background-size:100% 100%;
+  line-height: initial;
+}
+
+span.title{
+  font-size:77px;
+  font-family: "Aldrich";
+  color:white;
+  text-shadow: 3px 3px 4px rgba(255,255,255, 0.63);
+}
+.destination{
+  font-size:77px;
+  font-family: "Aldrich";
+  color:white;
+  text-align:center;
+        margin-bottom:40px;
+  text-shadow: 3px 3px 4px rgba(255,255,255, 0.63);
+}
+.headline{
+  text-align:center;
+}
+.mySlides {display:none;position:relative;}
+.caption{
+  color:white;
+  position:absolute;
+  top:70%;
+  left:30%;
+  background:rgba(0,0,0,.5);
+  font-size:30px;
+  border:5px solid gray;
+  border-radius:25px;
+  font-family: "Aldrich";
+  padding:5px;
+}
+div.totem{
+  box-shadow: 0 2px 2px 0 rgba(255,255,255,1),0 3px 1px -2px rgba(255,255,255,1),0 1px 15px 0 rgba(255,255,255,1);
+  margin-bottom:20px;
+  transition: all 0.8s ease 0s;
+}
+div.totem:hover{
+  border:1px solid blue;
+  cursor:pointer;
+  background:white;
+  color:black !important;
+}
+h2.activity{
+  color:white;
+  font-family: "Aldrich";
+  transition: all 0.8s ease 0s;
+}
+div.totem:hover h2{
+  color:black;
+}
+a{
+  text-decoration:none;
+}
+button.mdl-mini-footer__social-btn{
+  background:transparent;
+  width:unset;
+}
+h4{line-height:initial}
+
+.sliders{
+  -webkit-box-shadow: 5px 2px 5px 0px rgba(255,255,255,1);
+  -moz-box-shadow: 5px 2px 5px 0px rgba(255,255,255,1);
+  box-shadow: 5px 2px 5px 0px rgba(255,255,255,1);
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content *//*added*/
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+}
+
+.modal-body {padding: 5px 16px;}
+
+.modal-body input{/*added*/
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+html[useragent='Edge'] a{
+  color:white;
+}
+html[useragent='IE'] div.activity{
+  width:100%;
+}
+div#destination{
+  position:fixed;
+  bottom:0;
+  left:0;
+  z-index:1;
+  background:rgba(0,0,255,1);
+  width:100%;
+  display:none;
+}
+div#destination h4{
+  margin:0;
+}

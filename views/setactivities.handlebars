@@ -1,0 +1,98 @@
+<div id="home2"></div>
+
+<div class="container" id='gamesform'>
+    <div class='row'>
+        <div class='col-md-4 gamestableheader'>
+            Game
+        </div>
+        <div class='col-md-4 gamestableheader'>
+            Number of Games
+        </div>
+        <div class='col-md-4 gamestableheader'>
+            Description
+        </div>
+    </div>
+    {{#each games}}
+        <div class='row gamesline'>
+            <div class='col-md-4' style='color:white'>
+                <p class='game'>{{this.game}}</p>
+            </div>
+            <div class='col-md-3'>
+                <input type='range' class='form-control-range MTPrange' min="1" max='5' value={{this.MTP}} initial-value={{this.MTP}} />
+            </div>
+            <div class='col-md-1'>
+                <span class='MTPcounter'>{{this.MTP}}</span>
+            </div>
+            <div class='col-md-4'>
+                <input type='text' class='form-control gamesdesc' value={{this.description}}>
+                <input type='hidden' class="initialgamesdesc" value={{this.description}}>
+            </div>
+        </div>
+    {{/each}}
+    <button class='btn btn-primary btn-block' id="submitgamesvalues">Submit Games Info</button>
+</div>
+
+<script>
+    function isChanged(oldvalue,newvalue){
+        if (oldvalue == newvalue){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    $(".MTPrange").on("change", function(){
+        $(this).parent().next().children().text($(this).val());
+
+        if (isChanged($(this).attr("initial-value"),$(this).val())){
+            $(this).parent().parent().addClass("gamesvaluechanged");
+        } else {
+            $(this).parent().parent().removeClass("gamesvaluechanged");
+        }
+    });
+
+    $(".MTPrange").on("input", function(){
+        $(this).parent().next().children().text($(this).val());
+
+        if (isChanged($(this).attr("initial-value"),$(this).val())){
+            $(this).parent().parent().addClass("gamesvaluechanged");
+        } else {
+            $(this).parent().parent().removeClass("gamesvaluechanged");
+        }
+    });
+
+    $(".gamesdesc").on("keyup", function(){
+
+        if (isChanged($(this).next().val(),$(this).val())){
+            $(this).parent().parent().addClass("gamesvaluechanged");
+        } else {
+            $(this).parent().parent().removeClass("gamesvaluechanged");
+        }
+    });
+
+    $("#submitgamesvalues").click(function(){
+        //may need modal to confirm changes
+        //session storage or passport-local
+        //authentication is an email and code
+        //then get a token
+        var updatedGames = [];
+        for (var i = 0; i < $(".gamesvaluechanged").length; i++){
+            updatedGames.push({
+                game: $(".gamesvaluechanged").eq(i).find(".game").text(),
+                MTP: $(".gamesvaluechanged").eq(i).find(".MTPcounter").text(),
+                description: $(".gamesvaluechanged").eq(i).find(".gamesdesc").val()
+            });
+        }
+
+        $.ajax({
+            url: "/api/updategamesdata",
+            method: "PUT",
+            data: {code:sessionStorage.getItem("code"), gamesData:updatedGames},
+            success:function(data){
+                if(data.message == 'congratz'){
+                    window.location.href = "/congratulations";
+                }
+            }
+        });
+    })
+</script>
