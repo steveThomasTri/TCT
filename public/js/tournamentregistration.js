@@ -42,7 +42,7 @@ $("#tournamentevents").on("keydown", function(){
         if (eventlist[i] != ""){
             numberEvents++;
             eventList.push(eventlist[i]);
-        } 
+        }
     }
     $("span#eventCounter").text(numberEvents);
 });
@@ -54,7 +54,7 @@ $("#tournamentevents").on("blur", function(){
         if (eventlist[i] != "") numberEvents++;
     }
     $("span#eventCounter").text(numberEvents);
-    
+
     if (numberEvents > 9){
         $(this).removeClass("is-invalid");
         $(this).addClass("is-valid");

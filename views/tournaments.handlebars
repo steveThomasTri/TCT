@@ -9,9 +9,9 @@
                 <p>tournament date {{this.date}}</p>
                 <p>Players Registered: {{this.maxnum}}</p>
                 <p>Spots Remaining: 200</p>
-            </div> 
+            </div>
             <div class="card-footer">
-                <button type="button" class='btn btn-primary' tournamentID={{this.tournamentid}}>Enter Tournament</button>
+                <a href="/registration/{{this.tournamentid}}" type="button" class='btn btn-primary' tournamentID={{this.tournamentid}}>Enter Tournament</a>
             </div>
         </div>
     {{/each}}
