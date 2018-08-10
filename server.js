@@ -25,7 +25,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "amazon3210",
+  password: "password",
   database: "tct2016_"
 });
 
@@ -38,9 +38,16 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 });
 
-
+//Functions
 function registerTournament(tournamentData, cb){
   var td = tournamentData;
+
+  //Insert tournament ID
+  td.tournamentid = "";
+  for (var k = 0; k < 7; k++){
+    td.tournamentid += Math.floor(Math.random() * (10));
+  }
+
   var ev = tournamentData.events;
   delete td.events;
   connection.query("INSERT INTO tournaments SET ?", td, function(err, results){
@@ -85,6 +92,12 @@ app.get("/setactivities/:code", function(req, res){
 
 app.get("/congratulations", function(req, res){
   res.render("congratulations", {});
+});
+
+app.get("/registration/:tid", function(req, res){
+  connection.query("SELECT name, tournamentid from tournaments where tournamentid=? LIMIT 1", req.params.tid, function(err, result){
+    res.render("registration", result[0]);
+  })
 })
 
 app.post("/api/verify", function(req, res){
