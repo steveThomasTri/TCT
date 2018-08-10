@@ -1,6 +1,7 @@
 $("#playerregistrationform").on("submit", function(event){
   event.preventDefault();
 
+  //17 items need to be verified
   var playerdata = {
     firstname:$("#firstname").val().trim(),
     lastname:$("#lastname").val().trim(),
@@ -8,6 +9,8 @@ $("#playerregistrationform").on("submit", function(event){
     email:$("#email").val().trim(),
     username:$("#username").val().trim(),
     password:$("#password").val().trim(),
+    code:window.location.href.split("/")[4],
+    infosens:""
   }
 
   var playerdatapart2 = {
@@ -16,12 +19,18 @@ $("#playerregistrationform").on("submit", function(event){
     ssn:$("#SSNArea").val().trim()+'-'+$("#SSNGroup").val().trim()+'-'+$("#SSNSerial").val().trim()
   }
 
+  console.log(playerdata);
   $.ajax({
     url:"/api/playerregister",
     method:"POST",
     data:{playerdata:playerdata, playerdata2:playerdatapart2},
     success:function(data){
+      if (data){
+        window.location.href = "/congratulations";
 
+      } else {
+        console.log("data is not in, error");
+      }
     }
 
   });
