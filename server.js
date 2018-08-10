@@ -5,6 +5,12 @@ var bcrypt = require("bcrypt");
 var bodyParser = require("body-parser");
 var mysql = require("mysql");
 var async = require("async");
+var aes256 = require('aes256');
+
+var key = 'cicada3301';
+
+//var encrypted = aes256.encrypt(key, plaintext);
+//var decrypted = aes256.decrypt(key, encrypted);
 
 //App
 var app = express();
@@ -134,6 +140,23 @@ app.post("/api/tournamentdata", function(req, res){
 
   });
 });
+
+app.post("/api/playerregister", function(req, res){
+  console.log(req.body);
+
+  //get code and put into playerdata
+  //encrypt password
+  //encrypt sensitive data
+  //generate playerid, code, infosens
+  //merge objects
+
+  var string = JSON.stringify(req.body.playerdata2);
+  console.log(string);
+  var encrypted = aes256.encrypt(key, string);
+  console.log(encrypted);
+  var decrypted = aes256.decrypt(key, encrypted);
+  console.log(decrypted);
+})
 
 app.put("/api/updategamesdata", function(req, res){
   console.log(req.body);
