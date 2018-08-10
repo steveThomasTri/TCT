@@ -167,8 +167,8 @@ app.post("/api/playerregister", function(req, res){
 
 
   registerPlayer(req.body, function(data){
-    console.log(data);
     connection.query("INSERT INTO players SET ?", data, function(err, result){
+
       console.log(result.affectedRows);
       if (result.affectedRows == 1){
         res.json(true);

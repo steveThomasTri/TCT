@@ -1,0 +1,30 @@
+splash screen and congratulations screen
+  make text white
+
+mainmenu
+  change modal title to Enter your username/password to create your tournaments
+
+tournamnet info
+  use small text to show errors
+  some characters threw an error (handle on front-end or back end)
+  consider a loading screen
+
+setactivities
+  maybe too long of a list to set games, consider pagination
+
+database for games
+  inconsistency between null and empty in data
+
+  tournaments
+    title please
+
+regiatration
+  email should not be required
+
+schema.sql
+  update password in players to 200
+  change description to remove not null
+
+use dotenv to hide aes keys;
+
+an about page for the TCT project
