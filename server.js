@@ -74,8 +74,6 @@ function registerPlayer(playerData, cb){
         for (var k = 0; k < 10; k++){
           playerData.playerdata.playerid += Math.floor(Math.random() * (10));
         }
-        //var decrypted = aes256.decrypt(key, encrypted);
-        //console.log(decrypted);
         cb(playerData.playerdata);
     });
 
