@@ -1,7 +1,7 @@
 <div id="home2"></div>
 
 <div class='container' id='tournamentregistrationform'>
-  <form novalidate id='playerregistrationform'>
+  <form id='playerregistrationform'>
     <h1>Player Registration for {{name}}</h1>
     <div class='form-group'>
       <label for="tournamentname">First Name</label>
@@ -17,7 +17,7 @@
       <div class='form-group'>
         <label for="tournamentname">Date of Birth</label>
         <div class='form-inline'>
-        <select class='form-control col-2' id='birthmonth'>
+        <select class='form-control col-2' id='birthmonth' required>
           <option disabled selected value="">Month</option>
           <option value='1'>January</option>
           <option value='2'>February</option>
@@ -32,7 +32,7 @@
           <option value='11'>November</option>
           <option value='12'>December</option>
         </select>
-        <select class="form-control col-2" id='birthday'>
+        <select class="form-control col-2" id='birthday' required>
           <option disabled selected value="">Day</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -66,7 +66,7 @@
           <option value="30">30</option>
           <option value="31">31</option>
      </select>
-     <select class='form-control col-2' id='birthyear'>
+     <select class='form-control col-2' id='birthyear' required>
         <option disabled selected value="">Year</option>
           <option value="2001">2001</option>
           <option value="2000">2000</option>
@@ -175,7 +175,7 @@
     </div>
     <div class="col-md-4 mb-3">
       <label for="validationTooltip02">Address 2</label>
-      <input type="text" class="form-control" id="address2" placeholder="Apartment, suite, unit, building, floor, etc." value="" required>
+      <input type="text" class="form-control" id="address2" placeholder="Apartment, suite, unit, building, floor, etc." value="">
       <div class="valid-tooltip">
         Looks good!
       </div>
@@ -191,14 +191,68 @@
     </div>
     <div class="col-md-3 mb-3">
       <label for="validationTooltip04">State</label>
-      <input type="text" class="form-control" id="state" placeholder="State" required>
+      <select class="form-control" id="state" required>
+			<option selected disabled value="">State</option>
+			<option value="AK">Alaska</option>
+			<option value="AL">Alabama</option>
+			<option value="AR">Arkansas</option>
+			<option value="AZ">Arizona</option>
+			<option value="CA">California</option>
+			<option value="CO">Colorado</option>
+			<option value="CT">Connecticut</option>
+			<option value="DC">District of Columbia</option>
+			<option value="DE">Delaware</option>
+			<option value="FL">Florida</option>
+			<option value="GA">Georgia</option>
+			<option value="HI">Hawaii</option>
+			<option value="IA">Iowa</option>
+			<option value="ID">Idaho</option>
+			<option value="IL">Illinois</option>
+			<option value="IN">Indiana</option>
+			<option value="KS">Kansas</option>
+			<option value="KY">Kentucky</option>
+			<option value="LA">Louisiana</option>
+			<option value="MA">Massachusetts</option>
+			<option value="MD">Maryland</option>
+			<option value="ME">Maine</option>
+			<option value="MI">Michigan</option>
+			<option value="MN">Minnesota</option>
+			<option value="MO">Missouri</option>
+			<option value="MS">Mississippi</option>
+			<option value="MT">Montana</option>
+			<option value="NC">North Carolina</option>
+			<option value="ND">North Dakota</option>
+			<option value="NE">Nebraska</option>
+			<option value="NH">New Hampshire</option>
+			<option value="NJ">New Jersey</option>
+			<option value="NM">New Mexico</option>
+			<option value="NV">Nevada</option>
+			<option value="NY">New York</option>
+			<option value="OH">Ohio</option>
+			<option value="OK">Oklahoma</option>
+			<option value="OR">Oregon</option>
+			<option value="PA">Pennsylvania</option>
+			<option value="PR">Puerto Rico</option>
+			<option value="RI">Rhode Island</option>
+			<option value="SC">South Carolina</option>
+			<option value="SD">South Dakota</option>
+			<option value="TN">Tennessee</option>
+			<option value="TX">Texas</option>
+			<option value="UT">Utah</option>
+			<option value="VA">Virginia</option>
+			<option value="VT">Vermont</option>
+			<option value="WA">Washington</option>
+			<option value="WI">Wisconsin</option>
+			<option value="WV">West Virginia</option>
+			<option value="WY">Wyoming</option>
+		</select>
       <div class="invalid-tooltip">
         Please provide a valid state.
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <label for="validationTooltip05">Zip</label>
-      <input type="text" class="form-control" id="zip" placeholder="Zip" required>
+      <input type="text" class="form-control" id="zip" placeholder="Zip" required maxlength="5" pattern="[0-9]{5}">
       <div class="invalid-tooltip">
         Please provide a valid zip.
       </div>
@@ -208,27 +262,30 @@
     <label for="tournamentdate">Phone Number</label>
     <div class="center-text" style="display:flex">
         <span class="phonenumberleftparenthesis">(</span>
-        <input type="text" id="areacode" class="form-control input-group col-1" maxlength="3" placeholder="XXX" pattern="\d" required />
+        <input type="text" id="areacode" class="form-control input-group col-1" maxlength="3" placeholder="XXX" pattern="[0-9]{3}" required />
         <span class="phonenumberrightparenthesis">)</span>
-        <input type="text" id="phoneprefix" class="form-control input-group col-1" maxlength="3" placeholder="XXX" pattern="\d" required /><span class="ssnHyphen">-</span>
-        <input type="text" id="phonesuffix" class="form-control input-group col-1" maxlength="4" placeholder="XXXX" pattern="\d" required />
+        <input type="text" id="phoneprefix" class="form-control input-group col-1" maxlength="3" placeholder="XXX" pattern="[0-9]{3}" required /><span class="ssnHyphen">-</span>
+        <input type="text" id="phonesuffix" class="form-control input-group col-1" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}" required />
     </div>
     <small id="phonenumberHelp" class="form-text text-muted">fsdfsdaf</small>
   </div>
   <div class='form-group'>
     <label for="tournamentdate">Social Security Number</label>
     <div class="center-text" style="display:flex">
-        <input type="text" id="SSNArea" class="form-control input-group col-1" maxlength="3" placeholder="XXX" pattern="\d" required /><span class="ssnHyphen">-</span>
-        <input type="text" id="SSNGroup" class="form-control input-group col-1" maxlength="2" placeholder="XX" pattern="\d" required /><span class="ssnHyphen">-</span>
-        <input type="text" id="SSNSerial" class="form-control input-group col-1" maxlength="4" placeholder="XXXX" pattern="\d" required />
+        <input type="text" id="SSNArea" class="form-control input-group col-1" maxlength="3" placeholder="XXX" pattern="[0-9]{3}" required /><span class="ssnHyphen">-</span>
+        <input type="text" id="SSNGroup" class="form-control input-group col-1" maxlength="2" placeholder="XX" pattern="[0-9]{2}" required /><span class="ssnHyphen">-</span>
+        <input type="text" id="SSNSerial" class="form-control input-group col-1" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}" required />
     </div>
     <small id="ssnHelp" class="form-text text-muted">fsdfsdaf</small>
   </div>
   <div class='form-group'>
     <label for="tournamentdate">Create Your Username and Password for this tournament.</label>
-    <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Username" required>
-    <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" placeholder="Password" required>
-    <small id="dateHelp" class="form-text text-muted">fsdfsdaf</small>
+    <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Username" pattern="[A-Za-z\d]{8,}" required>
+    <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" placeholder="Password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
+    <small id="dateHelp" class="form-text text-muted">Username must be at least 8 alphanumeric characters</small>
+    <small id="dateHelp" class="form-text text-muted">Password must be at least 8 characters</small>
+    <small id="dateHelp" class="form-text text-muted">Password must contain at least 1 letter</small>
+    <small id="dateHelp" class="form-text text-muted">Password must contain at least 1 number</small>
   </div>
     <button id='submitregistration' type="submit" class="btn btn-primary">Register Tournament</button>
   </form>

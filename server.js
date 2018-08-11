@@ -61,6 +61,26 @@ function registerTournament(tournamentData, cb){
   });
 }
 
+function registerPlayer(playerData, cb){
+  connection.query("SELECT code from tournaments where tournamentid=?", playerData.playerdata.code, function(err, results){
+    bcrypt.hash(playerData.playerdata.password, 10).then(function(hash) {
+        playerData.playerdata.code = results[0].code;
+        playerData.playerdata.password = hash;
+        var string = JSON.stringify(playerData.playerdata2);
+        var encrypted = aes256.encrypt(key, string);
+        playerData.playerdata.infosens = encrypted;
+
+        playerData.playerdata.playerid = "";
+        for (var k = 0; k < 10; k++){
+          playerData.playerdata.playerid += Math.floor(Math.random() * (10));
+        }
+        cb(playerData.playerdata);
+    });
+
+
+  });
+}
+
 function verifas(email, password, cb){
   connection.query("Select password from bouncerlist where email=?",[email], function(err, results){
     cb(results[0].password);
@@ -142,20 +162,20 @@ app.post("/api/tournamentdata", function(req, res){
 });
 
 app.post("/api/playerregister", function(req, res){
-  console.log(req.body);
 
-  //get code and put into playerdata
-  //encrypt password
-  //encrypt sensitive data
-  //generate playerid, code, infosens
-  //merge objects
 
-  var string = JSON.stringify(req.body.playerdata2);
-  console.log(string);
-  var encrypted = aes256.encrypt(key, string);
-  console.log(encrypted);
-  var decrypted = aes256.decrypt(key, encrypted);
-  console.log(decrypted);
+  registerPlayer(req.body, function(data){
+    connection.query("INSERT INTO players SET ?", data, function(err, result){
+
+      console.log(result.affectedRows);
+      if (result.affectedRows == 1){
+        res.json(true);
+      } else {
+        res.json(false);
+      }
+    });
+  });
+
 })
 
 app.put("/api/updategamesdata", function(req, res){
