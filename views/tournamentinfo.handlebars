@@ -1,48 +1,46 @@
 <div id="home2"></div>
+<div id="loader" class="hidden"></div>
 
 <div class='container' id='tournamentregistrationform'>
   <form>
-    <h1>Tournament Registration</h1>
+    <h1 id='tournamentregistrationtitle'>Tournament Registration</h1>
     <div class='form-group'>
       <label for="tournamentname">Tournament Name</label>
       <input type="text" class="form-control" id="tournamentname" aria-describedby="nameHelp" placeholder="Tournament Name" required>
-      <small id="nameHelp" class="form-text text-muted"></small>
+      <small id="nameHelp" class="form-text text-muted hidden">Tournament name must not be empty</small>
     </div>
     <div class='form-group'>
       <label for="tournamentdate">Date of Tournament</label>
       <input type="text" class="form-control" id="tournamentdate" aria-describedby="dateHelp" placeholder="Tournament Date eg. 09/02/2018" required>
-      <small id="dateHelp" class="form-text text-muted">fsdfsdaf</small>
+      <small id="dateHelp" class="form-text text-muted hidden">Invalid Date, must be ##/##/####</small>
     </div>
     <div class='form-group'>
       <label for="tournamentmaxnum">Maximum number of Participants</label>
       <input type="text" class="form-control" id="tournamentmaxnum" aria-describedby="maxnumHelp" placeholder="Maximum of Participants" required>
-      <small id="maxnumHelp" class="form-text text-muted">fsdfsdaf</small>
+      <small id="maxnumHelp" class="form-text text-muted hidden">Invalid value, must be a number and greater than 9</small>
     </div>
     <div class='form-group'>
       <label for="tournamentloc">Tournament Location</label>
       <input type="text" class="form-control" id="tournamentloc" aria-describedby="locHelp" placeholder="Tournament Location" required>
-      <small id="locHelp" class="form-text text-muted">fsdfsdaf</small>
+      <small id="locHelp" class="form-text text-muted hidden">Tournament Location must not be empty</small>
     </div>
     <div class='form-group'>
       <label for="tournamentevents">Events List</label>
       <textarea class='form-control' id="tournamentevents" aria-describedby="eventsHelp" required></textarea>
-      <small id="eventsHelp" class="form-text text-muted">You should have a minimum of 10 events</small>
+      <small id="eventsHelp" class="form-text text-muted hidden">You should have a minimum of 10 events</small>
       <p>Number of Events: <span id="eventCounter"></span></p>
     </div>
     <div class='form-group'>
       <label for="tournamentcode">Tournament Code</label>
       <input type="text" class="form-control" id="tournamentcode" aria-describedby="codeHelp" placeholder="Enter Code Here" pattern="[a-z]{4}" required>
-      <small id="codeHelp" class="form-text text-muted">Your code should be only letters and a length of 4</small>
+      <small id="codeHelp" class="form-text text-muted hidden">Your code should be only letters and a length of 4</small>
     </div>
     <div class='form-group'>
       <label for="tournamentvalidmail">Valid Email</label>
       <input type="email" class="form-control " id="tournamentvalidmail" aria-describedby="validmailHelp" placeholder="Enter valid Email Address" required>
-      <small id="validmailHelp" class="form-text text-muted">This email will be used to validate your email and send you the necessary keys</small>
+      <small id="validmailHelp" class="form-text text-muted hidden">Email must be valid</small>
     </div>
     <button id='submittournamentregistration' type="submit" class="btn btn-primary">Submit Form</button>
   </form>
 </div>
-
-<!-- is-valid is-invalid -->
-
 <script src="/js/tournamentregistration.js"></script>

@@ -3,11 +3,11 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var bcrypt = require("bcrypt");
 var bodyParser = require("body-parser");
-var mysql = require("mysql");
 var async = require("async");
 var aes256 = require('aes256');
+var keys = require("./keys/keys.js");
 
-var key = 'cicada3301';
+var key = keys.aeskey;
 
 //var encrypted = aes256.encrypt(key, plaintext);
 //var decrypted = aes256.decrypt(key, encrypted);
@@ -25,24 +25,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//MySQL conection
-
-var connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "amazon3210",
-  database: "tct2016_"
-});
-
-
-connection.connect(function(err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("connected as id " + connection.threadId);
-});
+var connection = require("./config/connection.js");
 
 //Functions
 function registerTournament(tournamentData, cb){
@@ -146,7 +129,6 @@ app.post("/api/tournamentdata", function(req, res){
       connection.query("INSERT INTO games (game, code) VALUES (?,?)", [game,data2], function(err, results){
         if (err) throw err;
         querynumerator++;
-        console.log(querynumerator);
         callback();
       });
     }, function(err){
@@ -179,9 +161,6 @@ app.post("/api/playerregister", function(req, res){
 })
 
 app.put("/api/updategamesdata", function(req, res){
-  console.log(req.body);
-  //update the data
-
   var querynumerator = 0;
     async.each(req.body.gamesData, function(game, callback){
       console.log(game.game);
@@ -191,19 +170,16 @@ app.put("/api/updategamesdata", function(req, res){
       connection.query("UPDATE games SET MTP=?, AAV=?, description=? WHERE game=? AND code=?", [game.MTP, game.MTP, game.description, game.game, req.body.code], function(err, results){
         if (err) throw err;
         querynumerator++;
-        console.log(querynumerator);
         callback();
       });
     }, function(err){
       if(err) {
         console.log('A file failed to process');
       } else {
-        console.log('All games are updated');
         res.json({"message":"congratz"});
-        //congratulations you have set up your tournament activities
       }
     });
-})
+});
 
 //Listener
 app.listen(PORT, function() {

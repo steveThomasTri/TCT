@@ -2,7 +2,7 @@
 
 <div class='container' id='tournamentregistrationform'>
   <form id='playerregistrationform'>
-    <h1>Player Registration for {{name}}</h1>
+    <h1 class="splash centertext">Player Registration for {{name}}</h1>
     <div class='form-group'>
       <label for="tournamentname">First Name</label>
       <input type="text" class="form-control" id="firstname" aria-describedby="firstnameHelp" placeholder="First Name" required>
@@ -154,13 +154,13 @@
           <option value="1918">1918</option>
      </select>
       </div>
-        <small id="lastnameHelp" class="form-text text-muted">Date of birth</small>
+        <small id="lastnameHelp" class="form-text text-muted"></small>
       </div>
     </div>
     <div class='form-group'>
       <label for="playeremail">Email (Optional)</label>
-      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" required>
-      <small id="emailHelp" class="form-text text-muted">Your Email</small>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
+      <small id="emailHelp" class="form-text text-muted"></small>
     </div>
 
     <!-- The following information will only be used for verification purposes -->
@@ -267,7 +267,7 @@
         <input type="text" id="phoneprefix" class="form-control input-group col-1" maxlength="3" placeholder="XXX" pattern="[0-9]{3}" required /><span class="ssnHyphen">-</span>
         <input type="text" id="phonesuffix" class="form-control input-group col-1" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}" required />
     </div>
-    <small id="phonenumberHelp" class="form-text text-muted">fsdfsdaf</small>
+    <small id="phonenumberHelp" class="form-text text-muted"></small>
   </div>
   <div class='form-group'>
     <label for="tournamentdate">Social Security Number</label>
@@ -276,7 +276,7 @@
         <input type="text" id="SSNGroup" class="form-control input-group col-1" maxlength="2" placeholder="XX" pattern="[0-9]{2}" required /><span class="ssnHyphen">-</span>
         <input type="text" id="SSNSerial" class="form-control input-group col-1" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}" required />
     </div>
-    <small id="ssnHelp" class="form-text text-muted">fsdfsdaf</small>
+    <small id="ssnHelp" class="form-text text-muted"></small>
   </div>
   <div class='form-group'>
     <label for="tournamentdate">Create Your Username and Password for this tournament.</label>
