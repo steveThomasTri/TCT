@@ -45,7 +45,7 @@ create table players (
 		dateofbirth char(10) not null,
     email varchar(50),
     username varchar(20) not null,
-    password varchar(50) not null,
+    password varchar(100) not null,
     infosens varchar(200) not null,
     playerid char(10) not null,
     verified bool default false,

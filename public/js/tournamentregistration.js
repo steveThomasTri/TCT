@@ -1,12 +1,18 @@
+if (sessionStorage.getItem("stc") == null){
+  window.location.href = "/";
+}
+
 var eventList = [];
 
 function validator(input, regexator){
     if (input.val().trim() != '' && regexator.test(input.val().trim())){
         input.removeClass("is-invalid");
         input.addClass("is-valid");
+        input.next().addClass("hidden");
     } else {
         input.removeClass("is-valid");
         input.addClass("is-invalid");
+        input.next().removeClass("hidden");
     }
 }
 
@@ -19,7 +25,7 @@ $("#tournamentdate").on("change", function(){
 });
 
 $("#tournamentmaxnum").on("change", function(){
-    validator($(this), /^[0-9]{1,4}$/);
+    validator($(this), /^[0-9]{2,4}$/);
 });
 
 $("#tournamentloc").on("change", function(){
@@ -78,8 +84,8 @@ $("#tournamentregistrationform").on("submit", function(event){
             events: eventList,
         }
 
-        console.log(tournamentData);
-        //passed to the
+        $("#loader").removeClass("hidden");
+
         $.ajax({
             url:"/api/tournamentdata",
             method:"POST",
