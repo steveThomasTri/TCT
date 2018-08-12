@@ -1,29 +1,12 @@
-splash screen and congratulations screen
-  -X- make text white
-
-mainmenu
-  -X- change modal title to Enter your username/password to create your tournaments
-
 tournamnet info
-  -X- use small text to show errors
-  some characters threw an error (handle on front-end or back end)
-  -X- consider a loading screen
-  -X- needed to redirect if no sessionstorage is found
+  some characters threw an error like smart quotes(handle on front-end or back end)
 
 setactivities
   maybe too long of a list to set games, consider pagination
 
-database for games
-  inconsistency between null and empty in data
-
-tournaments
-  -X- title please
-
-regiatration
-  -X- email should not be required
-
-schema.sql
-  -X- update password in players to 200
-  -X- change description to remove not null
-
 an about page for the TCT project
+  more information about the TCT
+
+--DONE--
+changed all html routes to html-routes.js
+changed all api routes to api-routes.js
