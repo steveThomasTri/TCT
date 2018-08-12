@@ -42,13 +42,13 @@ create table players (
 	id int not null auto_increment,
     firstname varchar(20) not null,
     lastname varchar(20) not null,
-		dateofbirth char(10) not null,
+	dateofbirth char(10) not null,
     email varchar(50),
     username varchar(20) not null,
-    password varchar(50) not null,
+    password varchar(100) not null,
     infosens varchar(200) not null,
     playerid char(10) not null,
     verified bool default false,
-		code char(4) not null,
+	code char(4) not null,
     primary key(id)
 );
