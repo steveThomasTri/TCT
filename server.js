@@ -59,8 +59,6 @@ function registerPlayer(playerData, cb){
         }
         cb(playerData.playerdata);
     });
-
-
   });
 }
 
@@ -86,7 +84,6 @@ app.get("/tournamentinfo", function(req, res){
 app.get("/tournaments", function(req, res){
   connection.query("SELECT name, date, maxnum, location, tournamentid FROM tournaments", function(err, results){
     if (err) throw err;
-
     res.render("tournaments", {tournaments:results});
   })
 })
@@ -94,7 +91,6 @@ app.get("/tournaments", function(req, res){
 app.get("/setactivities/:code", function(req, res){
   connection.query("SELECT id, game, description, MTP from games where code=?",req.params.code, function(err,results){
     if (err) throw err;
-
     res.render("setactivities", {games:results});
   });
 });
@@ -123,7 +119,6 @@ app.post("/api/verify", function(req, res){
 
 app.post("/api/tournamentdata", function(req, res){
   registerTournament(req.body, function(data, data2){
-
     var querynumerator = 0;
     async.each(data, function(game, callback){
       connection.query("INSERT INTO games (game, code) VALUES (?,?)", [game,data2], function(err, results){
@@ -139,16 +134,12 @@ app.post("/api/tournamentdata", function(req, res){
         res.json({code:data2});
       }
     });
-
   });
 });
 
 app.post("/api/playerregister", function(req, res){
-
-
   registerPlayer(req.body, function(data){
     connection.query("INSERT INTO players SET ?", data, function(err, result){
-
       console.log(result.affectedRows);
       if (result.affectedRows == 1){
         res.json(true);
@@ -157,7 +148,6 @@ app.post("/api/playerregister", function(req, res){
       }
     });
   });
-
 })
 
 app.put("/api/updategamesdata", function(req, res){
