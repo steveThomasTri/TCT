@@ -3,9 +3,10 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var bodyParser = require("body-parser");
 var keys = require("./keys/keys.js");
+require('dotenv').config();
 
 //Keys
-var key = keys.aeskey;
+//var key = keys.aeskey;
 
 //App
 var app = express();

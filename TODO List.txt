@@ -12,6 +12,7 @@ may need a dotenv for keys
 may need a new field in bouncerlist/players to authenticate
 or
 use express-session 
+test .env without keys
 
 --DONE--
 changed all html routes to html-routes.js
