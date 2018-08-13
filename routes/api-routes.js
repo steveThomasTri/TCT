@@ -44,6 +44,16 @@ module.exports = function (app) {
         })
     }
 
+    function verifas2(username, password, cb) {
+        connection.query("Select password from players where username=?", [username], function (err, results) {
+            if (results.length > 0){
+                cb(results[0].password);
+            } else {
+                cb("dummypassword");
+            }
+        })
+    }
+
     app.post("/api/verify", function (req, res) {
         verifas(req.body.email, req.body.password, function (data) {
             bcrypt.compare(req.body.password, data).then(function (resh) {
@@ -55,6 +65,18 @@ module.exports = function (app) {
             });
         });
     });
+
+    app.post("/api/verify_player", function(req,res){
+        verifas2(req.body.username, req.body.password, function(data){
+            bcrypt.compare(req.body.password, data).then(function (resh) {
+                if (resh) {
+                    res.json("YES");
+                } else {
+                    res.json("NO");
+                }
+            });
+        })
+    })
 
     app.post("/api/tournamentdata", function (req, res) {
         registerTournament(req.body, function (data, data2) {
