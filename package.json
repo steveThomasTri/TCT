@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "run seed": "node schemas/testbouncer.js"
+    "seed": "node schemas/testbouncer.js",
+    "createcsv": "node bulkregister/createcsv.js svin",
+    "insertbulk": "node bulkregister/insertrecords.js"
   },
   "author": "Steve Thomas",
   "license": "ISC",
@@ -15,10 +17,16 @@
     "async": "^2.6.1",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
+    "csv-reader": "^1.0.3",
+    "csv-write-stream": "^2.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "jsonwebtoken": "^8.3.0",
-    "mysql": "^2.16.0"
+    "moment": "^2.22.2",
+    "mysql": "^2.16.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"

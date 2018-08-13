@@ -49,6 +49,6 @@ create table players (
     infosens varchar(200) not null,
     playerid char(10) not null,
     verified bool default false,
-	code char(4) not null,
+	code varchar(5) not null,
     primary key(id)
 );

@@ -1,6 +1,6 @@
 var keys = {
-  aeskey:'',
-  mysqlpassword:''
+  aeskey:'cicada3301',
+  mysqlpassword:'amazon3210'
 }
 
 module.exports = keys;
