@@ -18,6 +18,10 @@ html, body{
     position:relative;
 }
 
+.content{
+    color:black;
+}
+
 #gamesform{
     z-index:1;
     position:relative;
