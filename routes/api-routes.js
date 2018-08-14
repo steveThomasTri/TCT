@@ -3,7 +3,16 @@ var bcrypt = require("bcrypt");
 var aes256 = require('aes256');
 var async = require("async");
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
+  function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+      return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+  }
     //Functions
     function registerTournament(tournamentData, cb) {
         var td = tournamentData;
@@ -66,17 +75,21 @@ module.exports = function (app) {
         });
     });
 
-    app.post("/api/verify_player", function(req,res){
-        verifas2(req.body.username, req.body.password, function(data){
-            bcrypt.compare(req.body.password, data).then(function (resh) {
-                if (resh) {
-                    res.json("YES");
-                } else {
-                    res.json("NO");
-                }
-            });
-        })
-    })
+    app.post('/api/verify_player', passport.authenticate('local-login', {
+              successRedirect : '/playerhq', // redirect to the secure profile section
+              failureRedirect : '/playerhqlogin', // redirect back to the signup page if there is an error
+              failureFlash : true // allow flash messages
+  		}),
+          function(req, res) {
+              console.log("hello");
+
+              if (req.body.remember) {
+                req.session.cookie.maxAge = 1000 * 60 * 3;
+              } else {
+                req.session.cookie.expires = false;
+              }
+          res.redirect('/');
+      });
 
     app.post("/api/tournamentdata", function (req, res) {
         registerTournament(req.body, function (data, data2) {
