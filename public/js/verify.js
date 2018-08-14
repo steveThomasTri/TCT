@@ -25,4 +25,23 @@ $(document).ready(function(){
       });
     }
   });
+
+  $("button.playerverify").click(function(){
+    var playerusername = $('div.modal-body input#playerusername').val();
+    var playerpassword = $('div.modal-body input#playerpwd').val();
+
+    if (playerusername == "" || playerpassword == ""){
+      $('#playerhqtitle').text("You must enter a username and password.");
+    } else {
+      //alert(playerusername + playerpassword);
+      $.ajax({
+        url:"/api/verify_player",
+        method:"POST",
+        data:{'username':playerusername, 'password':playerpassword},
+        success:function(data){
+          console.log(data);
+        }
+      })
+    }
+  })
 });

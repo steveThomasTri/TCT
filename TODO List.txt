@@ -7,6 +7,13 @@ setactivities
 an about page for the TCT project
   more information about the TCT
 
+bulkregisters
+may need a dotenv for keys
+may need a new field in bouncerlist/players to authenticate
+or
+use express-session 
+test .env without keys
+
 --DONE--
 changed all html routes to html-routes.js
 changed all api routes to api-routes.js
