@@ -3,6 +3,7 @@ var CsvReadableStream = require('csv-reader');
 var bcrypt = require('bcrypt');
 var aes256 = require('aes256');
 var mysql = require('mysql');
+require('dotenv').config();
 
 //MySQL conection
 var connection = require("../config/connection.js")
@@ -24,7 +25,7 @@ function aes(data2, cb) {
 
 function inserter(data3) {
     connection.query("INSERT INTO players set ?", data3[0], function (err, results) {
-        console.log(resultsaffectedRows);
+        console.log(results.affectedRows);
     });
 }
 

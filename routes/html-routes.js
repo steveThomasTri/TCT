@@ -41,4 +41,8 @@ module.exports = function (app) {
     app.get("/about", function (req, res) {
         res.render("about", {});
     });
+
+    app.get("/playerhq", function(req, res){
+        res.render("playerhq", {});
+    })
 }
