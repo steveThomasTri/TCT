@@ -37,7 +37,7 @@ $("#tournamentvalidmail").on("change", function(){
 });
 
 $("#tournamentcode").on("change", function(){
-    validator($(this), /^[a-z]{4}$/);
+    validator($(this), /^[a-z]{3,5}$/);
 });
 
 $("#tournamentevents").on("keydown", function(){
