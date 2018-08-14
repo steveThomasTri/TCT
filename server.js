@@ -4,6 +4,12 @@ var exphbs = require("express-handlebars");
 var bodyParser = require("body-parser");
 require('dotenv').config();
 
+var session  = require('express-session');
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+
+require('./config/passport')(passport);
+
 //App
 var app = express();
 
@@ -17,12 +23,21 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(cookieParser());
+app.use(session({
+	secret: 'vidyapathaisalwaysrunning',
+	resave: true,
+	saveUninitialized: true
+ } )); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+
 //MySQL connection
 var connection = require("./config/connection.js");
 
 //routes
-require("./routes/html-routes.js")(app);
-require("./routes/api-routes.js")(app);
+require("./routes/html-routes.js")(app, passport);
+require("./routes/api-routes.js")(app, passport);
 
 //Listener
 app.listen(PORT, function() {

@@ -75,6 +75,19 @@ html, body{
     width:100%;
 }
 
+#home3 {
+    background: url('../images/cube-surface-2886285_1920.jpg') no-repeat 50% 50%;
+    position:fixed;
+    top:0;
+    z-index:0;
+    height:100%;
+    width:100%;
+}
+
+.playerhqbackground{
+  background: url('../images/cube-surface-2886285_1920.jpg') no-repeat 50% 50% !important;
+}
+
 .landing-text{
     display: table-cell;
     vertical-align: middle;
