@@ -4,6 +4,7 @@ var fs = require('fs');
 var csvWriter = require("csv-write-stream");
 var moment = require('moment');
 var mysql = require('mysql');
+require('dotenv').config();
 
 var code = process.argv[2];
 

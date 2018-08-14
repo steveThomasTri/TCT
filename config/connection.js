@@ -1,5 +1,4 @@
 var mysql = require("mysql");
-var keys = require("../keys/keys.js");
 
 //MySQL conection
 var connection = mysql.createConnection({

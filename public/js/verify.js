@@ -39,7 +39,10 @@ $(document).ready(function(){
         method:"POST",
         data:{'username':playerusername, 'password':playerpassword},
         success:function(data){
-          console.log(data);
+          if (data == "YES"){
+            window.location.href = "/playerHQ";
+          }else if (data == "NO"){
+          }
         }
       })
     }
