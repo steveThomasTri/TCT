@@ -7,13 +7,19 @@ setactivities
 an about page for the TCT project
   more information about the TCT
 
-bulkregisters
-may need a dotenv for keys
 may need a new field in bouncerlist/players to authenticate
 or
-use express-session 
-test .env without keys
+use express-session
 
---DONE--
-changed all html routes to html-routes.js
-changed all api routes to api-routes.js
+TESTING IN PROGRESS
+-------------------
+able to start server
+about page is clear
+verification on making tournament complete
+-- Had to change the pattern and the tournamentregistration.js for the new pattern
+tournament registration clear
+set activities clear
+player register for a tournament clear
+
+UNIT TESTING
+------------

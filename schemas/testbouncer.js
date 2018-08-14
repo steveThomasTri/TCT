@@ -1,11 +1,12 @@
 var bcrypt = require("bcrypt");
 var mysql = require("mysql");
+require('dotenv').config();
 
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "amazon3210",
+  password: process.env.DB_PASS,
   database: "tct2016_"
 });
 
@@ -25,5 +26,6 @@ var plaintext = "password"
 bcrypt.hash(plaintext, 10, function(err, hash){
   connection.query("INSERT INTO bouncerlist (fullname, email, password) VALUES (?,?,?)",[name, email, hash], function(err, results){
     console.log("DONE");
-  } )
+  } );
+  connection.end();
 });

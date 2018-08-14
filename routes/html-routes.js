@@ -44,5 +44,9 @@ module.exports = function (app) {
 
     app.get("/playerhq", function(req, res){
         res.render("playerhq", {});
+    });
+
+    app.get("/playerhqlogin", function(req, res){
+      res.render("playerhqlogin", {})
     })
 }
