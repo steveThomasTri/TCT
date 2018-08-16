@@ -9,7 +9,6 @@ $("#playerregistrationform").on("submit", function(event){
     email:$("#email").val().trim(),
     username:$("#username").val().trim(),
     password:$("#password").val().trim(),
-    code:window.location.href.split("/")[4],
     infosens:""
   }
 
@@ -19,11 +18,15 @@ $("#playerregistrationform").on("submit", function(event){
     ssn:$("#SSNArea").val().trim()+'-'+$("#SSNGroup").val().trim()+'-'+$("#SSNSerial").val().trim()
   }
 
+  var playerdatapart3 = {
+    code:window.location.href.split("/")[4]
+  }
+
   console.log(playerdata);
   $.ajax({
     url:"/api/playerregister",
     method:"POST",
-    data:{playerdata:playerdata, playerdata2:playerdatapart2},
+    data:{playerdata:playerdata, playerdata2:playerdatapart2, playerdata3:playerdatapart3},
     success:function(data){
       if (data){
         window.location.href = "/congratulations";

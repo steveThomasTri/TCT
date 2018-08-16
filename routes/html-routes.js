@@ -28,10 +28,20 @@ module.exports = function (app, passport) {
             if (err) throw err;
             res.render("tournaments", { tournaments: results });
         })
+    });
+
+    app.get("/tournaments/:code", function(req, res){
+        connection.query("SELECT name, tournamentid from tournaments where tournamentid=?", req.params.code, function(err, result){
+            if (result.length == 1){
+                res.render("tournamentgate", result[0]);
+            } else {
+                res.render("mainmenu", {});
+            }
+        })
     })
 
     app.get("/setactivities/:code", function (req, res) {
-        connection.query("SELECT id, game, description, MTP from games where code=?", req.params.code, function (err, results) {
+        connection.query("SELECT games.game, games.MTP, games.AAV, games.description, tournaments.code from games join tournaments on games.tournament_id=tournaments.id where code=?", req.params.code, function (err, results) {
             if (err) throw err;
             res.render("setactivities", { games: results });
         });

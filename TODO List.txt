@@ -16,10 +16,30 @@ TESTING IN PROGRESS
 able to start server
 about page is clear
 verification on making tournament complete
--- Had to change the pattern and the tournamentregistration.js for the new pattern
 tournament registration clear
 set activities clear
 player register for a tournament clear
+passport for the player HQ clear
 
 UNIT TESTING
 ------------
+
+
+
+
+TODO ITEMS
+----------
+Your player ID is ##########, 
+have a playerid or a username field 
+registration
+
+players
+  need to be verified before moving
+messages
+  messages must have a sender
+
+TESTING
+-------
+
+Player headquarters verified and unverifies
+fasttrack return message if already registered

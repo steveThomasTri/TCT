@@ -22,7 +22,16 @@ html, body{
     color:black;
 }
 
-#gamesform{
+.btn-tournament{
+    width:320px;
+    height:200px;
+}
+
+.iflex{
+    display:inline-flex;    
+}
+
+#gamesform {
     z-index:1;
     position:relative;
 }

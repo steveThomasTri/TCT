@@ -7,11 +7,11 @@ var connection = mysql.createConnection({
   port: 3306,
   user: "root",
   password: process.env.DB_PASS,
-  database: "tct2016_"
+  database: "tct2018"
 });
 
 
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) {
     console.error("error connecting: " + err.stack);
     return;
@@ -21,11 +21,11 @@ connection.connect(function(err) {
 
 var name = "John Doe";
 var email = "test@test.com";
-var plaintext = "password"
+var plaintext = "password";
 
-bcrypt.hash(plaintext, 10, function(err, hash){
-  connection.query("INSERT INTO bouncerlist (fullname, email, password) VALUES (?,?,?)",[name, email, hash], function(err, results){
+bcrypt.hash(plaintext, 10, function (err, hash) {
+  connection.query("INSERT INTO bouncerlist (fullname, email, password) VALUES (?,?,?)", [name, email, hash], function (err, results) {
     console.log("DONE");
-  } );
+  });
   connection.end();
 });

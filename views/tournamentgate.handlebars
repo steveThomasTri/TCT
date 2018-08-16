@@ -1,0 +1,92 @@
+<div id="home">
+    <div class="landing-text">
+        <h1 class="splash">{{this.name}}</h1>
+        <div class='iflex'>
+            <div class='splash'>
+                <h1>Fast Track</h1>
+                <a href="#" class='btn btn-info btn-tournament' data-toggle="modal" data-target="#playermodal">Already Registered</a>
+            </div>
+            <div class='splash'>
+                <h1>New Players</h1>
+                <a href="/registration/{{this.tournamentid}}" class='btn btn-info btn-tournament'>Sign Up Here</a>
+            </div>
+        </div>
+        <div>
+            <a href="/mainmenu" class='btn btn-primary'>Go Back to mainmenu</a>
+        </div>
+    </div>
+</div>
+
+<!-- PlayerHQ Modal -->
+<div class="modal fade" id="playermodal" tabindex="-1" role="dialog" aria-labelledby="playertitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="playertitle">Enter Your Tournament ID</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="playerID" class="form-control" placeholder="Tournament ID" maxlength="10">
+        <small>Your ID is not verified</small>
+        <div class="hidden">
+            <div id="fullname"></div>
+            <div id='username'></div>
+            <div>Is this correct?</div>
+            <input type="hidden" id="pid" value="">
+            <input type="hidden" id='tid' value={{this.tournamentid}} >
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary verifyID">Verify</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(".verifyID").click(function(){
+        //must verify that something is in the input
+        if ($("#playerID").val().trim() !== ""){
+            //send the id to the route /api/fasttrack/:ID
+            $.ajax({
+                url:"/api/fasttrack/" + $("#playerID").val().trim(),
+                method:"POST",
+                success:function(data){
+                    if (data && data !== "false"){
+                        $("div.modal-body #fullname").text(data.firstname+" "+data.lastname);
+                        $("div.modal-body #username").text(data.username);
+                        $("input#pid").val(data.id);
+                        $("div.modal-body .hidden").removeClass("hidden");
+                        $("div.modal-footer .verifyID").addClass("registerID");
+                        $("div.modal-footer .verifyID").removeClass("verifyID");
+                        $("div.modal-footer .registerID").removeClass("btn-primary");
+                        $("div.modal-footer .registerID").addClass("btn-success");
+                        $("div.modal-footer .registerID").text("Verify Again");
+                        $("div.modal-footer .registerID").off("click");
+                    } else {
+                        alert("no data is found")
+                    }
+                }
+            })
+        } else {
+            //error to please put something in
+        }
+    });
+
+    $("body").on("click","button.registerID", function(){
+        $.ajax({
+                url:"/api/fasttrack/" + $("input#pid").val() + "/" + $("input#tid").val(),
+                method:"POST",
+                success:function(data){
+                    if (data){
+                        window.location.href = "/congratulations";
+                    } else {
+                        alert("no data is found")
+                    }
+                }
+            })
+    })
+</script>

@@ -4,15 +4,15 @@ var aes256 = require('aes256');
 var async = require("async");
 
 module.exports = function (app, passport) {
-  function isLoggedIn(req, res, next) {
+    function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-      return next();
+        // if user is authenticated in the session, carry on
+        if (req.isAuthenticated())
+            return next();
 
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-  }
+        // if they aren't redirect them to the home page
+        res.redirect('/');
+    }
     //Functions
     function registerTournament(tournamentData, cb) {
         var td = tournamentData;
@@ -26,12 +26,20 @@ module.exports = function (app, passport) {
         var ev = tournamentData.events;
         delete td.events;
         connection.query("INSERT INTO tournaments SET ?", td, function (err, results) {
-            cb(ev, td.code);
+           // cb(ev, td.code);
+           if (err) throw err;
+           var status = {tournament_id:results.insertId,isclosed:false};
+           var fk = results.insertId;
+
+           connection.query("INSERT INTO tournament_status SET ?", status, function(err, resul){
+            cb(ev, fk, td.code);
+           });
+
         });
     }
 
     function registerPlayer(playerData, cb) {
-        connection.query("SELECT code from tournaments where tournamentid=?", playerData.playerdata.code, function (err, results) {
+        connection.query("SELECT code from tournaments where tournamentid=?", playerData.playerdata3.code, function (err, results) {
             bcrypt.hash(playerData.playerdata.password, 10).then(function (hash) {
                 playerData.playerdata.code = results[0].code;
                 playerData.playerdata.password = hash;
@@ -54,8 +62,8 @@ module.exports = function (app, passport) {
     }
 
     function verifas2(username, password, cb) {
-        connection.query("Select password from players where username=?", [username], function (err, results) {
-            if (results.length > 0){
+        connection.query("Select password from registration where username=?", [username], function (err, results) {
+            if (results.length > 0) {
                 cb(results[0].password);
             } else {
                 cb("dummypassword");
@@ -76,26 +84,26 @@ module.exports = function (app, passport) {
     });
 
     app.post('/api/verify_player', passport.authenticate('local-login', {
-              successRedirect : '/playerhq', // redirect to the secure profile section
-              failureRedirect : '/playerhqlogin', // redirect back to the signup page if there is an error
-              failureFlash : true // allow flash messages
-  		}),
-          function(req, res) {
-              console.log("hello");
+        successRedirect: '/playerhq', // redirect to the secure profile section
+        failureRedirect: '/playerhqlogin', // redirect back to the signup page if there is an error
+        failureFlash: true // allow flash messages
+    }),
+        function (req, res) {
+            console.log("hello");
 
-              if (req.body.remember) {
+            if (req.body.remember) {
                 req.session.cookie.maxAge = 1000 * 60 * 3;
-              } else {
+            } else {
                 req.session.cookie.expires = false;
-              }
-          res.redirect('/');
-      });
+            }
+            res.redirect('/');
+        });
 
     app.post("/api/tournamentdata", function (req, res) {
-        registerTournament(req.body, function (data, data2) {
+        registerTournament(req.body, function (data, data2, data3) {
             var querynumerator = 0;
             async.each(data, function (game, callback) {
-                connection.query("INSERT INTO games (game, code) VALUES (?,?)", [game, data2], function (err, results) {
+                connection.query("INSERT INTO games (game, tournament_id) VALUES (?,?)", [game, data2], function (err, results) {
                     if (err) throw err;
                     querynumerator++;
                     callback();
@@ -105,7 +113,7 @@ module.exports = function (app, passport) {
                     console.log('A file failed to process');
                 } else {
                     console.log('All queries are inserted');
-                    res.json({ code: data2 });
+                    res.json({ code: data3 });
                 }
             });
         });
@@ -113,10 +121,20 @@ module.exports = function (app, passport) {
 
     app.post("/api/playerregister", function (req, res) {
         registerPlayer(req.body, function (data) {
-            connection.query("INSERT INTO players SET ?", data, function (err, result) {
-                console.log(result.affectedRows);
+            delete data.code;
+            var k;
+            connection.query("INSERT INTO registration SET ?", data, function (err, result) {
                 if (result.affectedRows == 1) {
-                    res.json(true);
+                    k = result.insertId;
+                    connection.query("INSERT INTO stats SET ?", {player_id:k}, function(err, result2){
+                        connection.query("INSERT INTO messages SET ?", {player_id:k,message:"Welcome to TCT"}, function(err, results3){
+                            if (results3.affectedRows == 1){
+                                res.json(true);
+                            } else {
+                                res.json(false);
+                            }
+                        });
+                    });
                 } else {
                     res.json(false);
                 }
@@ -127,7 +145,7 @@ module.exports = function (app, passport) {
     app.put("/api/updategamesdata", function (req, res) {
         var querynumerator = 0;
         async.each(req.body.gamesData, function (game, callback) {
-            connection.query("UPDATE games SET MTP=?, AAV=?, description=? WHERE game=? AND code=?", [game.MTP, game.MTP, game.description, game.game, req.body.code], function (err, results) {
+            connection.query("UPDATE games SET MTP=?, AAV=?, description=? WHERE game=? AND tournament_id=(SELECT id from tournaments where code=?)", [game.MTP, game.MTP, game.description, game.game, req.body.code], function (err, results) {
                 if (err) throw err;
                 querynumerator++;
                 callback();
@@ -140,4 +158,36 @@ module.exports = function (app, passport) {
             }
         });
     });
+
+    app.post("/api/fasttrack/:ID", function(req, res){
+        connection.query("SELECT id, firstname, lastname, username from registration where playerid=?", req.params.ID, function(err, result){
+            if (result.length == 1){
+                res.json(result[0]);
+            } else {
+                res.json("false");
+            }
+        })
+    })
+
+    app.post("/api/fasttrack/:PID/:TID", function(req, res){
+        connection.query("SELECT id FROM tournaments where tournamentid=?", req.params.TID, function(err, result){
+            if(err) throw err;
+            if (result.length == 1){
+                var tid = result[0].id;
+
+                connection.query("INSERT INTO players (player_id, tournament_id) VALUES (?,?)",[req.params.PID, tid], function(err, results2){
+                    if (err) throw err;
+
+                    connection.query("INSERT INTO messages (player_id, message) VALUES (?,?)", [req.params.PID, req.params.TID], function(err, result3){
+                        if (err) throw err;
+                        if (result3.affectedRows == 1){
+                            res.json(true);
+                        } else {
+                            res.json(false);
+                        }
+                    })
+                })
+            }
+        })
+    })
 }
