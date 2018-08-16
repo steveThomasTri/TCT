@@ -10,6 +10,32 @@
 <div class="container" id='gamesform'>
     <h1 class='splash centertext'>Select a Tournament</h1>
     <h1>Your Tournaments</h1>
+    {{#if user.verified}}
+        {{#each user.tournaments}}
+            <div class="card">
+            <div class="card-header">{{name}}</div>
+            <div class="card-body">
+                <p>Located at {{location}}</p>
+                <p>tournament date {{date}}</p>
+            </div>
+            <div class="card-footer">
+                <div>Tournament starts {{timeremaining}}</div>
+            </div>
+        </div>
+        {{/each}}
+    {{/if}}
+    {{#unless user.verified}}
+        <p>You need to be verified before showing</p>
+    {{/unless}}
     <h1>Your Stats</h1>
+    <div>
+        <p>Total Wins: {{user.stats.wins}}</p>
+        <p>Total Losses: {{user.stats.losses}}</p>
+        <p>Total Victories: {{user.stats.victories}}</p>
+    </div>
+
     <h1>Messages</h1>
+    {{#each user.messages}}
+        <p>{{message}}</p>
+    {{/each}}
 </div>
