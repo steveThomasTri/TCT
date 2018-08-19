@@ -1,15 +1,24 @@
 <div id="home3"></div>
 <nav class="navbar navbar-light bg-light justify-content-between">
     <a class="navbar-brand">Welcome {{user.firstname}} ({{user.username}})</a>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Settings
+        </a>
+        <div class="dropdown-menu dropleft" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="/playerhq_personalinfo">Edit Personal Info</a>
+          <a class="dropdown-item" href="/logout">Log Out</a>
+        </div>
+      </li>
+    </ul>
 </nav>
 
 <div class="container" id='gamesform'>
     <h1 class='splash centertext'>Select a Tournament</h1>
-    <h1>Your Tournaments</h1>
+    <h1 class='splash'>Your Tournaments</h1>
     {{#if user.verified}}
         {{#each user.tournaments}}
             <div class="card">
@@ -17,6 +26,7 @@
             <div class="card-body">
                 <p>Located at {{location}}</p>
                 <p>tournament date {{date}}</p>
+                <a href='/playerhq_skillrating/{{tournamentid}}' class='btn btn-primary'>Rate Games</a>
             </div>
             <div class="card-footer">
                 <div>Tournament starts {{timeremaining}}</div>
@@ -27,14 +37,14 @@
     {{#unless user.verified}}
         <p>You need to be verified before showing</p>
     {{/unless}}
-    <h1>Your Stats</h1>
+    <h1 class='splash'>Your Stats</h1>
     <div>
         <p>Total Wins: {{user.stats.wins}}</p>
         <p>Total Losses: {{user.stats.losses}}</p>
         <p>Total Victories: {{user.stats.victories}}</p>
     </div>
 
-    <h1>Messages</h1>
+    <h1 class='splash'>Messages</h1>
     {{#each user.messages}}
         <p>{{message}}</p>
     {{/each}}

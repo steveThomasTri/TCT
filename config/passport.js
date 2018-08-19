@@ -25,21 +25,20 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         var player;
-        connection.query("SELECT firstname, username, verified FROM registration WHERE id = ? ",[id], function(err, rows){
-            //done(err, rows[0]);
+        connection.query("SELECT id, firstname, username, verified FROM registration WHERE id = ? ",[id], function(err, rows){
             player = rows[0]
             connection.query("SELECT wins, losses, victories FROM stats where player_id=?",[id], function(err,rows2){
                 player.stats = rows2[0];
-                //done(err, player);
                 connection.query("SELECT message FROM messages where player_id=?", [id], function(err, rows3){
                     player.messages = rows3;
-                    //done(err, player);
+                    console.log(player);
                     connection.query("SELECT name, date, location, tournamentid FROM tournaments JOIN players ON tournaments.id = players.tournament_id where player_id=?", [id], function(err, rows4){
-                        var timeremaining = moment(rows4[0].date).fromNow();
-                        if (rows4.length > 1){
+                        var timeremaining = moment(rows4[0].date,"MM-DD-YYYY").fromNow();
+                        if (rows4.length >= 1){
                             for (var i = 0; i < rows4.length; i++){
                                 rows4[i].timeremaining = moment(rows4[i].date).fromNow();
                             }
+                            console.log(player);
                             player.tournaments = rows4;
                             done(err, player);
                         }

@@ -1,4 +1,5 @@
 var connection = require("../config/connection.js");
+var aes256 = require('aes256');
 
 module.exports = function (app, passport) {
   function isLoggedIn(req, res, next) {
@@ -65,9 +66,40 @@ module.exports = function (app, passport) {
   		res.render('playerhq', {
   			user : req.user // get the user out of session and pass to template
   		});
-  	});
+      });
+      
+    app.get("/playerhq_personalinfo", isLoggedIn, function(req, res){
+        connection.query("SELECT infosens from registration where id=?", req.user.id, function(err, result){
+            var decrypted = aes256.decrypt(process.env.AESKEY, result[0].infosens);
+            res.render('playerhq_personalnfo', JSON.parse(decrypted));
+        })
+    });
+
+    app.get("/playerhq_skillrating/:tid", isLoggedIn, function(req, res){
+        connection.query("SELECT id from tournaments where tournamentid = ?", req.params.tid, function(err, result){
+            connection.query("select game_ratings.id,game_ratings.player_id,game_ratings.game_id,game_ratings.rating, games.game, games.description from game_ratings join games on game_ratings.game_id=games.id where tournament_id=? and player_id=?", [result[0].id, req.user.id], function(err,result2){
+                var allgames = [];
+                var pointer = 0;
+                while (pointer < result2.length - 1){
+                    var page = [];
+                    for (var i = 0; i < 10; i++){
+                        page.push(result2[pointer]);
+                        if (pointer == result2.length - 1) break;
+                        pointer++;
+                    }
+                    allgames.push(page);
+                }
+                res.render("playerhq_skillrating", {games:allgames,user:req.user});
+            })
+        })
+    });
 
     app.get("/playerhqlogin", function(req, res){
       res.render("playerhqlogin", {})
+    });
+
+    app.get("/logout", function(req, res){
+        req.logout();
+        res.redirect("/mainmenu");
     })
 }

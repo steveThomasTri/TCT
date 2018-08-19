@@ -42,7 +42,6 @@ create table games (
 );
 
 drop table if exists registration;
-drop table if exists players;
 create table registration (
 	id int not null auto_increment,
     firstname varchar(20) not null,
@@ -107,4 +106,13 @@ create table players (
     foreign key(tournament_id) references tournaments(id) on delete cascade
 );
 
---select * from games;
+drop table if exists game_ratings;
+create table game_ratings (
+    id int not null auto_increment,
+    player_id int not null,
+    game_id int not null,
+    rating int default 5,
+    primary key(id),
+    foreign key(player_id) references registration(id) on delete cascade,
+    foreign key(game_id) references games(id) on delete cascade
+);
