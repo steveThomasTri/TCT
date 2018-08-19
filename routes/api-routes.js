@@ -26,14 +26,14 @@ module.exports = function (app, passport) {
         var ev = tournamentData.events;
         delete td.events;
         connection.query("INSERT INTO tournaments SET ?", td, function (err, results) {
-           // cb(ev, td.code);
-           if (err) throw err;
-           var status = {tournament_id:results.insertId,isclosed:false};
-           var fk = results.insertId;
+            // cb(ev, td.code);
+            if (err) throw err;
+            var status = { tournament_id: results.insertId, isclosed: false };
+            var fk = results.insertId;
 
-           connection.query("INSERT INTO tournament_status SET ?", status, function(err, resul){
-            cb(ev, fk, td.code);
-           });
+            connection.query("INSERT INTO tournament_status SET ?", status, function (err, resul) {
+                cb(ev, fk, td.code);
+            });
 
         });
     }
@@ -121,15 +121,40 @@ module.exports = function (app, passport) {
 
     app.post("/api/playerregister", function (req, res) {
         registerPlayer(req.body, function (data) {
+            var code = data.code;
             delete data.code;
             var k;
             connection.query("INSERT INTO registration SET ?", data, function (err, result) {
                 if (result.affectedRows == 1) {
                     k = result.insertId;
-                    connection.query("INSERT INTO stats SET ?", {player_id:k}, function(err, result2){
-                        connection.query("INSERT INTO messages SET ?", {player_id:k,message:"Welcome to TCT"}, function(err, results3){
-                            if (results3.affectedRows == 1){
-                                res.json(true);
+                    connection.query("INSERT INTO stats SET ?", { player_id: k }, function (err, result2) {
+                        connection.query("INSERT INTO messages SET ?", { player_id: k, message: "Welcome to TCT" }, function (err, results3) {
+                            if (results3.affectedRows == 1) {
+                                connection.query("SELECT id from tournaments where code = ?", code, function (err, result4) {
+                                    var tcode = result4[0].id;
+                                    connection.query("INSERT INTO players (player_id, tournament_id) VALUES (?,?)", [k, result4[0].id], function (err, result6) {
+                                        connection.query("SELECT id from games where tournament_id = ?", tcode, function (err, result5) {
+                                            var games = result5;
+                                            var querynumerator = 0;
+
+                                            async.each(games, function (game, callback) {
+                                                connection.query("INSERT INTO game_ratings (player_id, game_id) VALUES (?,?)", [k, game.id], function (err, results) {
+                                                    if (err) throw err;
+                                                    querynumerator++;
+                                                    console.log(querynumerator);
+                                                    callback();
+                                                });
+                                            }, function (err) {
+                                                if (err) {
+                                                    console.log('A file failed to process');
+                                                } else {
+                                                    console.log('All queries are inserted');
+                                                    res.json(true);
+                                                }
+                                            });
+                                        });
+                                    });
+                                });
                             } else {
                                 res.json(false);
                             }
@@ -159,9 +184,26 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.post("/api/fasttrack/:ID", function(req, res){
-        connection.query("SELECT id, firstname, lastname, username from registration where playerid=?", req.params.ID, function(err, result){
-            if (result.length == 1){
+    app.put("/api/updategameratings", function (req, res) {
+        var querynumerator = 0;
+        async.each(req.body.gamesData, function (game, callback) {
+            connection.query("UPDATE game_ratings SET rating=? WHERE id=?", [game.rating, game.game_id], function (err, results) {
+                if (err) throw err;
+                querynumerator++;
+                callback();
+            });
+        }, function (err) {
+            if (err) {
+                console.log('A file failed to process');
+            } else {
+                res.json({ "message": "congratz" });
+            }
+        });
+    });
+
+    app.post("/api/fasttrack/:ID", function (req, res) {
+        connection.query("SELECT id, firstname, lastname, username from registration where playerid=?", req.params.ID, function (err, result) {
+            if (result.length == 1) {
                 res.json(result[0]);
             } else {
                 res.json("false");
@@ -169,19 +211,39 @@ module.exports = function (app, passport) {
         })
     })
 
-    app.post("/api/fasttrack/:PID/:TID", function(req, res){
-        connection.query("SELECT id FROM tournaments where tournamentid=?", req.params.TID, function(err, result){
-            if(err) throw err;
-            if (result.length == 1){
+    app.post("/api/fasttrack/:PID/:TID", function (req, res) {
+        connection.query("SELECT id FROM tournaments where tournamentid=?", req.params.TID, function (err, result) {
+            if (err) throw err;
+            if (result.length == 1) {
                 var tid = result[0].id;
 
-                connection.query("INSERT INTO players (player_id, tournament_id) VALUES (?,?)",[req.params.PID, tid], function(err, results2){
+                connection.query("INSERT INTO players (player_id, tournament_id) VALUES (?,?)", [req.params.PID, tid], function (err, results2) {
                     if (err) throw err;
 
-                    connection.query("INSERT INTO messages (player_id, message) VALUES (?,?)", [req.params.PID, req.params.TID], function(err, result3){
+                    connection.query("INSERT INTO messages (player_id, message) VALUES (?,?)", [req.params.PID, req.params.TID], function (err, result3) {
                         if (err) throw err;
-                        if (result3.affectedRows == 1){
-                            res.json(true);
+                        if (result3.affectedRows == 1) {
+                            //res.json(true);
+                            connection.query("SELECT id from games where tournament_id = ?", tid, function (err, result5) {
+                                var games = result5;
+                                var querynumerator = 0;
+
+                                async.each(games, function (game, callback) {
+                                    connection.query("INSERT INTO game_ratings (player_id, game_id) VALUES (?,?)", [req.params.PID, game.id], function (err, results) {
+                                        if (err) throw err;
+                                        querynumerator++;
+                                        console.log(querynumerator);
+                                        callback();
+                                    });
+                                }, function (err) {
+                                    if (err) {
+                                        console.log('A file failed to process');
+                                    } else {
+                                        console.log('All queries are inserted');
+                                        res.json(true);
+                                    }
+                                });
+                            });
                         } else {
                             res.json(false);
                         }

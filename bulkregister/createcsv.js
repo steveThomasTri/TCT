@@ -48,7 +48,7 @@ function bulkcsv() {
                     dateofbirth: moment($(".dl-horizontal dd").eq(5).html()).format("MM/DD/YYYY"),
                     email: $(".dl-horizontal dd").eq(8).html().split(" ")[0],
                     username: $(".dl-horizontal dd").eq(9).html(),
-                    password: $(".dl-horizontal dd").eq(10).html(),
+                    password: "password1234",
                     address: $("div.adr").html().trim().replace("<br>", ", "),
                     ssn: ssn,
                     phonenumber: $(".dl-horizontal dd").eq(3).html(),

@@ -124,6 +124,15 @@ div#tournamentregistrationform small{
   color:red !important;
 }
 
+.page {
+    display: none;
+    background: none;
+}
+
+.page-active {
+    display: block;
+}
+
 /* loader */
 #loader {
   position: absolute;

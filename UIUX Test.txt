@@ -1,0 +1,24 @@
+1. Clear Database by running schemas/schrma.sql script in mysql
+    Check for empty tables X
+
+2. Run npm run seed
+    It should return one row in the bouncerlist X
+
+3. Run npm start
+    went to splash
+    went to mainmanu
+    went to register tournament
+    went to tournament info
+    loaded set activities
+    returned to congratulation page
+    return to mainmenu
+
+4. Checking Data after tournament is created
+    Tournaments X
+    tournament_status X
+    games X
+
+5. Enter the tournaments list
+    click on a tournament to register
+    fill out the regiaste form
+    good

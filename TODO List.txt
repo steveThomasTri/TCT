@@ -1,45 +1,33 @@
-tournamnet info
-  some characters threw an error like smart quotes(handle on front-end or back end)
+TODO for 8/18/2018
 
-setactivities
-  maybe too long of a list to set games, consider pagination
+start thinking about cycling pictures or a video in the background of splash page
 
-an about page for the TCT project
-  more information about the TCT
+tournamentinof something to handle special characters
 
-may need a new field in bouncerlist/players to authenticate
-or
-use express-session
+pagination on setactivities
+ -title please and instructions
 
-TESTING IN PROGRESS
--------------------
-able to start server
-about page is clear
-verification on making tournament complete
-tournament registration clear
-set activities clear
-player register for a tournament clear
-passport for the player HQ clear
+more sustainable about page, more info, neeeds a terms of service and disclaimers, read the small print 
 
-UNIT TESTING
-------------
+if you want to create a tournament, you can register no more than 2 tournaments
 
+tournament splash page
+ -pictures for the options
 
+when selecting a tournament, the spots remaining should be verified
+
+tournamentinfo - you should remove the valid email and replace with bouncerlist_id
+this may need to be verified using passport 
+
+need back buttons for certain page
+  tournaments list
+
+players needed to be in the player table to continue.
 
 
-TODO ITEMS
-----------
-Your player ID is ##########, 
-have a playerid or a username field 
-registration
+We need some verification process for players
+  Create a test folder that uses verification but do not push to github
+  verify_player.js, only try to verify if they have not been verified
+  rating.js will change the rating for all players
 
-players
-  need to be verified before moving
-messages
-  messages must have a sender
-
-TESTING
--------
-
-Player headquarters verified and unverifies
-fasttrack return message if already registered
+tooltip for description of games
