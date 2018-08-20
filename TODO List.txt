@@ -1,5 +1,7 @@
 TODO for 8/18/2018
-
+--------------------------
+blackirishlibenforcer - had to empty out sessionstorage or else it didn't populate when tournament is made
+--------------------------
 start thinking about cycling pictures or a video in the background of splash page
 
 tournamentinof something to handle special characters
@@ -7,7 +9,7 @@ tournamentinof something to handle special characters
 pagination on setactivities
  -title please and instructions
 
-more sustainable about page, more info, neeeds a terms of service and disclaimers, read the small print 
+more sustainable about page, more info, neeeds a terms of service and disclaimers, read the small print
 
 if you want to create a tournament, you can register no more than 2 tournaments
 
@@ -17,7 +19,7 @@ tournament splash page
 when selecting a tournament, the spots remaining should be verified
 
 tournamentinfo - you should remove the valid email and replace with bouncerlist_id
-this may need to be verified using passport 
+this may need to be verified using passport
 
 need back buttons for certain page
   tournaments list

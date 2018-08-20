@@ -106,6 +106,7 @@ module.exports = function (app, passport) {
                 connection.query("INSERT INTO games (game, tournament_id) VALUES (?,?)", [game, data2], function (err, results) {
                     if (err) throw err;
                     querynumerator++;
+                    console.log(querynumerator);
                     callback();
                 });
             }, function (err) {
