@@ -224,7 +224,6 @@ module.exports = function (app, passport) {
                     connection.query("INSERT INTO messages (player_id, message) VALUES (?,?)", [req.params.PID, req.params.TID], function (err, result3) {
                         if (err) throw err;
                         if (result3.affectedRows == 1) {
-                            //res.json(true);
                             connection.query("SELECT id from games where tournament_id = ?", tid, function (err, result5) {
                                 var games = result5;
                                 var querynumerator = 0;

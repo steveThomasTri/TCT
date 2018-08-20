@@ -21,7 +21,7 @@ var options = {
 var records = 0;
 
 function bulkcsv() {
-    if (records < 10) {
+    if (records < 18) {
         rp(options)
             .then(function ($) {
                 var ssn = '';

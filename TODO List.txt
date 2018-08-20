@@ -21,8 +21,7 @@ when selecting a tournament, the spots remaining should be verified
 tournamentinfo - you should remove the valid email and replace with bouncerlist_id
 this may need to be verified using passport
 
-need back buttons for certain page
-  tournaments list
+need back buttons for certain page tournaments list
 
 players needed to be in the player table to continue.
 
@@ -33,3 +32,24 @@ We need some verification process for players
   rating.js will change the rating for all players
 
 tooltip for description of games
+
+
+TODO August 20th
+----------------
+splash page needs cycling of images (splash)
+email populated in email (tournamentinfo)
+change number of fields required to 6 (tournamentinfo)
+-X- change spots remaining to reflect people remaining(tournaments)
+-X- added back button to skill rating (playerhq)
+-X- added tooltips to skillrating, but might need description below for better rendering
+-X- added compare page for skills
+
+tournamentinof something to handle special characters maybe handled on front end
+need back buttons for certain page tournaments list
+
+pagination on setactivities
+ -title please and instructions
+
+more sustainable about page, more info, neeeds a terms of service and disclaimers, read the small print
+
+table schema needs to change in bouncerlist to do a check for number of tournaments

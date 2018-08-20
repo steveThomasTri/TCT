@@ -24,7 +24,7 @@
     {{#each this}}
     <div class='row gamesline'>
       <div class='col-md-5' style='color:white'>
-        <p class='game splash'>{{this.game}}</p>
+        <p class='game splash' data-toggle="tooltip" data-placement="right" title="Tooltip on right">{{this.game}}</p>
       </div>
       <div class='col-md-5'>
         <input type='range' class='form-control-range MTPrange' data-id={{this.id}} min="1" max='10' value={{this.rating}} initial-value={{this.rating}}
@@ -53,6 +53,7 @@
     </ul>
   </nav>
   <button class='btn btn-primary btn-block' id="submitgameratings">Submit Games Info</button>
+  <a href="/playerhq"class='btn btn-danger btn-block'>Go Back to Player HQ</a>
 </div>
 <script>
   function isChanged(oldvalue, newvalue) {
