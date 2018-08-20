@@ -31,14 +31,12 @@ module.exports = function(passport) {
                 player.stats = rows2[0];
                 connection.query("SELECT message FROM messages where player_id=?", [id], function(err, rows3){
                     player.messages = rows3;
-                    console.log(player);
                     connection.query("SELECT name, date, location, tournamentid FROM tournaments JOIN players ON tournaments.id = players.tournament_id where player_id=?", [id], function(err, rows4){
                         var timeremaining = moment(rows4[0].date,"MM-DD-YYYY").fromNow();
                         if (rows4.length >= 1){
                             for (var i = 0; i < rows4.length; i++){
-                                rows4[i].timeremaining = moment(rows4[i].date).fromNow();
+                                rows4[i].timeremaining = moment(rows4[i].date,"MM-DD-YYYY").fromNow();
                             }
-                            console.log(player);
                             player.tournaments = rows4;
                             done(err, player);
                         }
