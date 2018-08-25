@@ -75,9 +75,10 @@ module.exports = function (app, passport) {
         verifas(req.body.email, req.body.password, function (data) {
             bcrypt.compare(req.body.password, data).then(function (resh) {
                 if (resh) {
-                    res.json("YES");
+                    res.json(["YES", req.body.email]);
+                    //passport is the 
                 } else {
-                    res.json("NO");
+                    res.json(["NO"]);
                 }
             });
         });

@@ -6,11 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "seed": "node schemas/testbouncer.js",
-    "createcsv": "node bulkregister/createcsv.js hki ",
+    "seed": "node test/testbouncer.js",
+    "createcsv": "node bulkregister/createcsv.js test ",
     "insertbulk": "node bulkregister/insertrecords.js",
     "verifyplayers": "node test/verify_players.js",
-    "updateratings": "node test/updateskillrating.js"
+    "deleteplayers": "node test/deleteplayers.js",
+    "updateratings": "node test/updateskillrating.js",
+    "generaterandom": "node test/generaterandom.js"
   },
   "author": "Steve Thomas",
   "license": "ISC",

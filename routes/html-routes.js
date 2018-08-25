@@ -112,16 +112,15 @@ module.exports = function (app, passport) {
             connection.query("SELECT * from players where player_id = ? and tournament_id = ? LIMIT 1", [req.params.P2, result[0].id], function(err, result2){
           
               if (result2.length == 1){
-                connection.query("SELECT games.game, game_ratings.game_id, game_ratings.rating from games join game_ratings on games.id=game_ratings.game_id where player_id = ?", [req.params.P1], function(err, result3){
-                  connection.query("SELECT games.game, game_ratings.game_id, game_ratings.rating from games join game_ratings on games.id=game_ratings.game_id where player_id = ?", [req.params.P2], function(err, result4){
-          
+                connection.query("SELECT games.game, game_ratings.game_id, game_ratings.rating, games.random from games join game_ratings on games.id=game_ratings.game_id where player_id = ?", [req.params.P1], function(err, result3){
+                  connection.query("SELECT games.game, game_ratings.game_id, game_ratings.rating, games.random from games join game_ratings on games.id=game_ratings.game_id where player_id = ?", [req.params.P2], function(err, result4){
                     var compared = [];
                     for (var i = 0 ; i < result3.length; i++){
                       result3[i].difference = Math.abs(result3[i].rating - result4[i].rating)
                       result3[i].avg = (result3[i].rating + result4[i].rating)/2;
                     }
-          
-                    result3.sort(function(a,b){return a.difference - b.difference || b.avg - a.avg});
+                    
+                    result3.sort(function(a,b){return a.difference - b.difference || b.avg - a.avg || b.random - a.random});
                     
                     res.render("skillcompare", {result:result3});
                   });

@@ -36,7 +36,7 @@ tooltip for description of games
 
 TODO August 20th
 ----------------
-splash page needs cycling of images (splash)
+splash page needs cycling of images (splash) - maybe needs to be a video
 email populated in email (tournamentinfo)
 change number of fields required to 6 (tournamentinfo)
 -X- change spots remaining to reflect people remaining(tournaments)

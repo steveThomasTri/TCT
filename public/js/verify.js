@@ -13,12 +13,13 @@ $(document).ready(function(){
         method:'POST',
         data:{'email':email, 'password':pwd},
         success:function(data){
-          if (data == "YES"){
+          if (data[0] == "YES"){
             var d = new Date();
             var n = d.getTime();
             sessionStorage.setItem("stc",n);
+            sessionStorage.setItem("email",data[1]);
             window.location.href = "/tournamentinfo";
-          }else if (data == "NO"){
+          }else if (data[0] == "NO"){
             $('#exampleModalCenterTitle').text("We did not find that email. Try again!");
           }
         }
