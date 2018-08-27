@@ -98,8 +98,8 @@ connection.connect(function (err) {
     console.log("connected as id " + connection.threadId);
 });
 
-connection.query("SELECT id from players where tournament_id = ?", [1], function (err, result) {
-    result.map(player => playersarray.push(player.id));
+connection.query("SELECT player_id from players where tournament_id = ?", [2], function (err, result) {
+    result.map(player => playersarray.push(player.player_id));
 
     var pairings = [];
     var rounds = 15;
@@ -119,7 +119,7 @@ connection.query("SELECT id from players where tournament_id = ?", [1], function
 
     for (var p = 0; p < pairings.length; p++){
         for (var s = 0; s < pairings[p].length; s+=2){
-            connection.query("insert into tournament_pairings (tournament_id, player1, player2, round) VALUES (?,?,?,?)",[1,pairings[p][s],pairings[p][s+1],p+1]);
+            connection.query("insert into tournament_pairings (tournament_id, player1, player2, round) VALUES (?,?,?,?)",[2,pairings[p][s],pairings[p][s+1],p+1]);
         }
     }
 });
