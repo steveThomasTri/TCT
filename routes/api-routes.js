@@ -76,7 +76,7 @@ module.exports = function (app, passport) {
             bcrypt.compare(req.body.password, data).then(function (resh) {
                 if (resh) {
                     res.json(["YES", req.body.email]);
-                    //passport is the 
+                    //passport is the
                 } else {
                     res.json(["NO"]);
                 }
@@ -171,8 +171,9 @@ module.exports = function (app, passport) {
 
     app.put("/api/updategamesdata", function (req, res) {
         var querynumerator = 0;
+        console.log(req.body);
         async.each(req.body.gamesData, function (game, callback) {
-            connection.query("UPDATE games SET MTP=?, AAV=?, description=? WHERE game=? AND tournament_id=(SELECT id from tournaments where code=?)", [game.MTP, game.MTP, game.description, game.game, req.body.code], function (err, results) {
+            connection.query("UPDATE games SET MTP=?, AAV=?, description=? WHERE game=? AND tournament_id=(SELECT id from tournaments where code=? LIMIT 1)", [game.MTP, game.MTP, game.description, game.game, req.body.code], function (err, results) {
                 if (err) throw err;
                 querynumerator++;
                 callback();

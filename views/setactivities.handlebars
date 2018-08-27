@@ -87,7 +87,7 @@
         $.ajax({
             url: "/api/updategamesdata",
             method: "PUT",
-            data: {gamesData:updatedGames},
+            data: {code:sessionStorage.getItem("code"),gamesData:updatedGames},
             success:function(data){
                 if(data.message == 'congratz'){
                     window.location.href = "/congratulations";
