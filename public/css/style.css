@@ -160,3 +160,13 @@ div#tournamentregistrationform small{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.matrix-container {
+    background: gray
+}
+.grid{
+    border:1px solid red;
+}
+.matrix-row{
+    height:100px;
+}

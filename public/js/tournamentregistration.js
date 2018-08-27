@@ -2,6 +2,8 @@ if (sessionStorage.getItem("stc") == null){
   window.location.href = "/";
 }
 
+sessionStorage.removeItem("code");
+
 var eventList = [];
 
 function validator(input, regexator){
@@ -69,6 +71,9 @@ $("#tournamentevents").on("blur", function(){
         $(this).addClass("is-invalid");
     }
 });
+
+$("#tournamentvalidmail").val(sessionStorage.getItem("email"));
+$("#tournamentvalidmail").addClass("is-valid").prop("disabled", true);
 
 $("#tournamentregistrationform").on("submit", function(event){
     event.preventDefault();

@@ -9,6 +9,7 @@ create table bouncerlist (
     fullname varchar(50) not null,
     email varchar(50) not null,
     password varchar(100) not null,
+    inprogress bool default false,
     primary key(id),
     unique `email` (email)
 );
@@ -35,6 +36,7 @@ create table games (
     points int(5) default 0,
     MTP int(2) default 1,
     AAV int(2) default 1,
+    random int(5),
     description text,
     tournament_id int,
     primary key(id),
@@ -101,6 +103,7 @@ create table players (
     id int not null auto_increment,
     player_id int not null,
     tournament_id int not null,
+    random int(5),
     primary key(id),
     foreign key(player_id) references registration(id) on delete cascade,
     foreign key(tournament_id) references tournaments(id) on delete cascade
@@ -115,4 +118,17 @@ create table game_ratings (
     primary key(id),
     foreign key(player_id) references registration(id) on delete cascade,
     foreign key(game_id) references games(id) on delete cascade
+);
+
+drop table if exists tournament_pairings;
+create table tournament_pairings(
+	id int not null auto_increment,
+    tournament_id int not null,
+    player1 int not null,
+    player2 int not null,
+    round char(2) not null,
+    primary key(id),
+    foreign key (tournament_id) references tournaments(id) on delete cascade,
+    foreign key (player1) references registration(id) on delete cascade,
+    foreign key (player2) references registration(id) on delete cascade
 );
