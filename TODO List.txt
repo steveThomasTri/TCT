@@ -53,3 +53,6 @@ pagination on setactivities
 more sustainable about page, more info, neeeds a terms of service and disclaimers, read the small print
 
 table schema needs to change in bouncerlist to do a check for number of tournaments
+
+-changed schems
+-changed input
