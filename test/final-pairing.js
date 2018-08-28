@@ -1,9 +1,10 @@
 var mysql = require("mysql");
 
 var playersarray = [];
-var rounds = 15;
+var rounds = 16;
 var currentround = 1;
 var samepairings = 0;
+var tid = 1;
 
 Array.prototype.shuffle = function () {
     var input = this;
@@ -98,11 +99,11 @@ connection.connect(function (err) {
     console.log("connected as id " + connection.threadId);
 });
 
-connection.query("SELECT player_id from players where tournament_id = ?", [2], function (err, result) {
+connection.query("SELECT player_id from players where tournament_id = ?", [tid], function (err, result) {
     result.map(player => playersarray.push(player.player_id));
 
     var pairings = [];
-    var rounds = 15;
+    var rounds = 16;
     var currentround = 1;
     var samepairings = 0;
 
@@ -117,9 +118,9 @@ connection.query("SELECT player_id from players where tournament_id = ?", [2], f
         currentround++;
     }
 
-    for (var p = 0; p < pairings.length; p++){
-        for (var s = 0; s < pairings[p].length; s+=2){
-            connection.query("insert into tournament_pairings (tournament_id, player1, player2, round) VALUES (?,?,?,?)",[2,pairings[p][s],pairings[p][s+1],p+1]);
+    for (var p = 0; p < pairings.length; p++) {
+        for (var s = 0; s < pairings[p].length; s += 2) {
+            connection.query("insert into tournament_pairings (tournament_id, player1, player2, round) VALUES (?,?,?,?)", [tid, pairings[p][s], pairings[p][s + 1], p + 1]);
         }
     }
 });

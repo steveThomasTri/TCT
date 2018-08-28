@@ -1,58 +1,30 @@
-<div>{{result.0.game}}</div>
-<div>{{result.1.game}}</div>
-<div>{{result.2.game}}</div>
-<div>{{result.3.game}}</div>
-<div>{{result.4.game}}</div>
-<div>{{result.5.game}}</div>
-<div>{{result.6.game}}</div>
-<div>{{result.7.game}}</div>
-<div>{{result.8.game}}</div>
+{{#each result}} 
+    {{player1}} VS {{player2}}
+    <div>{{result.0.game}}</div>
+    <div>{{result.1.game}}</div>
+    <div>{{result.2.game}}</div>
+    <div>{{result.3.game}}</div>
+    <div>{{result.4.game}}</div>
+    <div>{{result.5.game}}</div>
+    <div>{{result.6.game}}</div>
+    <div>{{result.7.game}}</div>
+    <div>{{result.8.game}}</div>
 
-<div class="container matrix-container">
-    <div class="row matrix-row">
-        <div class="col-sm-4 grid rowA column1">{{result.0.game}}</div>
-        <div class="col-sm-4 grid rowA column2">{{result.1.game}}</div>
-        <div class="col-sm-4 grid rowA column3">{{result.2.game}}</div>
+    <div class="container matrix-container">
+        <div class="row matrix-row">
+            <div class="col-sm-4 grid rowA column1">{{result.0.game}}</div>
+            <div class="col-sm-4 grid rowA column2">{{result.1.game}}</div>
+            <div class="col-sm-4 grid rowA column3">{{result.2.game}}</div>
+        </div>
+        <div class="row matrix-row">
+            <div class="col-sm-4 grid rowB column1">{{result.3.game}}</div>
+            <div class="col-sm-4 grid rowB column2">{{result.4.game}}</div>
+            <div class="col-sm-4 grid rowB column3">{{result.5.game}}</div>
+        </div>
+        <div class="row matrix-row">
+            <div class="col-sm-4 grid rowC column1">{{result.6.game}}</div>
+            <div class="col-sm-4 grid rowC column2">{{result.7.game}}</div>
+            <div class="col-sm-4 grid rowC column3">{{result.8.game}}</div>
+        </div>
     </div>
-    <div class="row matrix-row">
-        <div class="col-sm-4 grid rowB column1">{{result.3.game}}</div>
-        <div class="col-sm-4 grid rowB column2">{{result.4.game}}</div>
-        <div class="col-sm-4 grid rowB column3">{{result.5.game}}</div>
-    </div>
-    <div class="row matrix-row">
-        <div class="col-sm-4 grid rowC column1">{{result.6.game}}</div>
-        <div class="col-sm-4 grid rowC column2">{{result.7.game}}</div>
-        <div class="col-sm-4 grid rowC column3">{{result.8.game}}</div>
-    </div>
-</div>
-
-{{#each result}}
-{{player1}} VS {{player2}}
-<div>{{result.0.game}}</div>
-<div>{{result.1.game}}</div>
-<div>{{result.2.game}}</div>
-<div>{{result.3.game}}</div>
-<div>{{result.4.game}}</div>
-<div>{{result.5.game}}</div>
-<div>{{result.6.game}}</div>
-<div>{{result.7.game}}</div>
-<div>{{result.8.game}}</div>
-
-<div class="container matrix-container">
-    <div class="row matrix-row">
-        <div class="col-sm-4 grid rowA column1">{{result.0.game}}</div>
-        <div class="col-sm-4 grid rowA column2">{{result.1.game}}</div>
-        <div class="col-sm-4 grid rowA column3">{{result.2.game}}</div>
-    </div>
-    <div class="row matrix-row">
-        <div class="col-sm-4 grid rowB column1">{{result.3.game}}</div>
-        <div class="col-sm-4 grid rowB column2">{{result.4.game}}</div>
-        <div class="col-sm-4 grid rowB column3">{{result.5.game}}</div>
-    </div>
-    <div class="row matrix-row">
-        <div class="col-sm-4 grid rowC column1">{{result.6.game}}</div>
-        <div class="col-sm-4 grid rowC column2">{{result.7.game}}</div>
-        <div class="col-sm-4 grid rowC column3">{{result.8.game}}</div>
-    </div>
-</div>
 {{/each}}
