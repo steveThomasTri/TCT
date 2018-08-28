@@ -6,6 +6,9 @@ var mysql = require('mysql');
 var async = require("async");
 require('dotenv').config();
 
+var rows = 0;
+var numplayers = 0;
+
 //MySQL conection
 var connection = require("../config/connection.js")
 var inputStream = fs.createReadStream('bulkregister/my.csv', 'utf8');
@@ -28,40 +31,50 @@ function inserter(data3) {
     var code = data3[0].code;
     delete data3[0].code;
     var k;
-    connection.query("INSERT INTO registration set ?", data3[0], function (err, results) {
-        console.log(results.affectedRows);
-        k = results.insertId;
-        console.log(code);
+    try {
+        connection.query("INSERT INTO registration set ?", data3[0], function (err, results) {
+            if (err) throw err;
+            k = null;
+            k = results.insertId;
+            if (k !== null) {
+                connection.query("INSERT INTO stats SET ?", { player_id: k }, function (err, results2) {
+                    connection.query("INSERT INTO messages SET ?", { player_id: k, message: "Welcome to TCT" }, function (err, result3) {
+                        connection.query("SELECT id from tournaments where code = ?", code, function (err, result4) {
+                            var tcode = result4[0].id;
 
-        connection.query("INSERT INTO stats SET ?", {player_id:k}, function(err, results2){
-          connection.query("INSERT INTO messages SET ?", { player_id: k, message: "Welcome to TCT" },function(err, result3){
-            connection.query("SELECT id from tournaments where code = ?", code, function (err, result4){
-              var tcode = result4[0].id;
+                            connection.query("INSERT INTO players (player_id, tournament_id) VALUES (?,?)", [k, result4[0].id], function (err, result6) {
+                                connection.query("SELECT id from games where tournament_id = ?", tcode, function (err, result7) {
+                                    var games = result7;
+                                    var querynumerator = 0;
 
-              connection.query("INSERT INTO players (player_id, tournament_id) VALUES (?,?)", [k, result4[0].id], function (err, result6) {
-                connection.query("SELECT id from games where tournament_id = ?", tcode, function(err, result7){
-                  var games = result7;
-                  var querynumerator = 0;
-
-                  async.each(games, function (game, callback) {
-                      connection.query("INSERT INTO game_ratings (player_id, game_id) VALUES (?,?)", [k, game.id], function (err, results8) {
-                          if (err) throw err;
-                          querynumerator++;
-                          console.log(querynumerator);
-                      });
-                  }, function (err) {
-                      if (err) {
-                          console.log('A file failed to process');
-                      } else {
-                          console.log('All queries are inserted');
-                      }
-                  });
+                                    async.each(games, function (game, callback) {
+                                        connection.query("INSERT INTO game_ratings (player_id, game_id) VALUES (?,?)", [k, game.id], function (err, results8) {
+                                            if (err) throw err;
+                                            querynumerator++;
+                                            if (querynumerator == games.length) {
+                                                numplayers++;
+                                                if (numplayers == rows) {
+                                                    connection.end()
+                                                }
+                                            }
+                                        });
+                                    }, function (err) {
+                                        if (err) {
+                                            console.log('A file failed to process');
+                                        } else {
+                                            console.log('All queries are inserted');
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                    });
                 });
-              });
-            });
-          });
+            }
         });
-    });
+    } catch (err) {
+        console.log("duplicate")
+    }
 }
 
 inputStream
@@ -79,6 +92,7 @@ inputStream
             code: row[10]
         }, { phonenumber: row[8], ssn: row[7], address: row[6] }]
 
+        rows++;
         insertPlayer(playerData, aes);
 
     })

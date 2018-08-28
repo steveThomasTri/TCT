@@ -17,6 +17,7 @@ connection.query("SELECT id from game_ratings", function(err, result){
           console.log('A file failed to process');
       } else {
           console.log('All skill ratings are updated');
+          connection.end();
       }
   });
 });

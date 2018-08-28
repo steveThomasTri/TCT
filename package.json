@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "seed": "node test/testbouncer.js",
+    "seed": "node test/testbouncer.js && npm start",
     "createcsv": "node bulkregister/createcsv.js test ",
     "insertbulk": "node bulkregister/insertrecords.js",
     "verifyplayers": "node test/verify_players.js",
